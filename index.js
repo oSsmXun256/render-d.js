@@ -109,13 +109,13 @@ const rpc = axios.create({ baseURL: "https://api.tts.quest/v3/voicevox/synthesis
 async function genAudio(text) {
     const response = await rpc.get("?text=" + encodeURI(text) + "&speaker=3")
 
-    // console.log("+ = = = = = = = = = +")
-    // console.log(response.data)
+    console.log("+ = = = = = = = = = +")
+    console.log(response.data)
 
     for(let i = 0;i <= 1; i) {
         const status_json = await axios.get(response.data.audioStatusUrl)
 
-        // console.log(status_json.data)
+        console.log(status_json.data)
 
         if(status_json.data.isAudioReady) {
             i = 2;
@@ -139,7 +139,7 @@ client.on('messageCreate', async message => {
         vcq.push(async () => {
           let noTagStr = message.content.replace(/<[^>]+>/g, '');
           noTagStr = noTagStr.replace(/\|\|.*?\|\|/g, 'スポイラー');
-          // console.log(noTagStr)
+          console.log(noTagStr)
           const mp3_url = await genAudio(noTagStr);
   
           const connection = getVoiceConnection(message.guild.id);
