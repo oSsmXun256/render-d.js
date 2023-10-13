@@ -12,6 +12,6 @@
     "ffmpeg-static": "^5.2.0",
     "sodium": "^3.0.2",
     "ytdl-core": "^4.11.5",
-    "async": "3.2.4"
+    "async": "^3.2.4"
   }
 }
