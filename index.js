@@ -12,7 +12,7 @@ const axios = require('axios');
 const fs = require('fs');
 const async = require('async');
 
-const ver = "0.0.31"
+const ver = "0.0.4"
 const stm = "取得中"
 
 client.on('ready', () => {
