@@ -31,8 +31,8 @@ http
   })
   .listen(3000);
 
-if (process.env.DISCORD_BOT_TOKEN == undefined || process.env.DISCORD_BOT_TOKEN == "") {
-  console.log("DISCORD_BOT_TOKENを設定してください。");
+if (process.env.TOKEN == undefined || process.env.TOKEN == "") {
+  console.log("BotのTOKENを設定してください。");
   process.exit(0);
 }
 
