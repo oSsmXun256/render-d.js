@@ -25,8 +25,6 @@ client.on('ready', () => {
   status: 'online'});
 });
 
-const async = require('async');
-
 const vcq = async.queue(async (task, callback) => {
   try {
       await task();
