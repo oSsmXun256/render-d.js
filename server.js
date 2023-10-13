@@ -1,23 +1,39 @@
-const express = require('express');
-const app = express();
+const http = require("http");
+const querystring = require("node:querystring");
 
-app.get('/', (req, res) => {
-  res.send('I\'m alive');
-});
+//GASでwakeさせること。
 
-app.listen(8080, () => {
-  console.log('Server started on port 8080');
-});
+http
+  .createServer(function(req, res) {
+    if (req.method == "POST") {
+      var data = "";
+      req.on("data", function(chunk) {
+        data += chunk;
+      });
+      req.on("end", function() {
+        if (!data) {
+          res.end("No post data");
+          return;
+        }
+        var dataObject = querystring.parse(data);
+        console.log("post:" + dataObject.type);
+        if (dataObject.type == "wake") {
+          console.log("Woke up in post");
+          res.end();
+          return;
+        }
+        res.end();
+      });
+    } else if (req.method == "GET") {
+      res.writeHead(200, { "Content-Type": "text/plain" });
+      res.end("Discord Bot is Oprateing!");
+    }
+  })
+  .listen(3000);
 
-// バックグラウンドでサーバーを実行
-const server = app.listen(8080, () => {
-  console.log('Server started on port 8080');
-});
+if (process.env.DISCORD_BOT_TOKEN == undefined || process.env.DISCORD_BOT_TOKEN == "") {
+  console.log("DISCORD_BOT_TOKENを設定してください。");
+  process.exit(0);
+}
 
-// プロセスを終了しない
-process.on('SIGINT', () => {
-  server.close(() => {
-    console.log('Server stopped');
-    process.exit();
-  });
-});
+require("./index.js")
